@@ -6,8 +6,16 @@ const PORT = process.env.PORT || 4000;
 const indexPath = path.join(import.meta.dirname, '..', 'public', 'index.html');
 
 async function handleRequest(req, res) {
-res.writeHead(501, { 'Content-Type': 'text/plain; charset=utf-8' });
-  res.end('Not written yet: handleRequest is still the starter stub.\n');
+    const { method, url } = req;
+
+    if (method === 'GET' && url === '/api/stations') {
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({ data: stations }));
+        return;
+}
+
+    res.writeHead(501, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.end('Not written yet: handleRequest is still the starter stub.\n');
 }
 
 const server = http.createServer(async (req, res) => {
